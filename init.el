@@ -23,6 +23,7 @@
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
 (defalias 'yes-or-no-p 'y-or-n-p)
 (electric-pair-mode 1)
+(setq create-lockfiles nil)
 
 ;;;; Theming and UI
 
@@ -195,6 +196,7 @@
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
   (helpful-mode . centaur-tabs-local-mode)
+  (vterm-mode . centaur-tabs-local-mode)
   :bind
   ("C-x t [" . centaur-tabs-backward)
   ("C-x t ]" . centaur-tabs-forward)
@@ -257,13 +259,9 @@
 (use-package yasnippet
   :ensure t
   :custom
-  (yas-snippet-dirs (append yas-snippet-dirs `("~/.emacs.d/mysnippets")))
-  :config
-  (yas-reload-all)
-  (use-package yasnippet-snippets
-    :ensure t)
-  :hook
-  (prog-mode . yas-minor-mode))
+  (yas-snippet-dirs `("~/.emacs.d/mysnippets" "~/.emacs.d/snippets"))
+  :init
+  (yas-global-mode))
 
 (use-package emmet-mode
   :ensure t

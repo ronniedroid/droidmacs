@@ -233,10 +233,12 @@
 ;; LSP MODE
 
 ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-(setq lsp-keymap-prefix "C-c l")
+
 
 (use-package lsp-mode
   :ensure t
+  :bind
+  ("C-c l" . lsp-keymap-prefix)
   :hook ((rjsx-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
@@ -288,6 +290,27 @@
   ("C-c t p" . multi-vterm-prev)
   ("C-c t t" . multi-vterm-dedicated-toggle)
   ("C-c t p" . multi-vterm-project))
+
+;; saved and named macros
+
+(fset 'harikar-category-wrap
+   (kmacro-lambda-form [?\C-a ?\" ?\C-e ?\" ?, ?\C-n] 0 "%d"))
+
+(fset 'harikar-data-wrap
+   (kmacro-lambda-form [?\C-a ?\C-e ?, ?\C-n] 0 "%d"))
+
+(fset 'harikar-wrap-list-item
+   (kmacro-lambda-form [?\C-a ?< ?l ?i ?> ?\C-e ?< ?/ ?l ?i ?> ?\C-n] 0 "%d"))
+
+(fset 'harikar-wrap-data-dashboard
+   (kmacro-lambda-form [?æ ?,] 0 "%d"))
+
+;; setting keybinding for the keyboard macros
+(global-set-key (kbd "C-x C-k 1") 'harikar-category-wrap)
+(global-set-key (kbd "C-x C-k 2") 'harikar-data-wrap)
+(global-set-key (kbd "C-x C-k 3") 'harikar-wrap-list-item)
+(global-set-key (kbd "C-x C-k 4") 'harikar-wrap-data-dashboard)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

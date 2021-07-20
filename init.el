@@ -44,13 +44,6 @@
       initial-scratch-message nil
       tab-width 2)
 
-;; fix path issues
-
-(use-package exec-path-from-shell
-  :init
-  (when (daemonp)
-    (exec-path-from-shell-initialize)))
-
 ;; eye candy
 (use-package modus-vivendi-theme
   :config

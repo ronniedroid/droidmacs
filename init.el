@@ -1,3 +1,14 @@
+(setq gc-cons-threshold (* 50 1000 1000))
+
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
 ;; package management
 (setq straight-use-package-by-default t
       package-enable-at-startup nil
@@ -33,6 +44,12 @@
       initial-scratch-message nil
       tab-width 2)
 
+;; fix path issues
+
+(use-package exec-path-from-shell
+  :init
+  (when (daemonp)
+    (exec-path-from-shell-initialize)))
 
 ;; eye candy
 (use-package modus-vivendi-theme
@@ -43,14 +60,36 @@
   :config
   (which-key-mode))
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :after dashboard)
 
 (use-package echo-bell
   :config
   (setq echo-bell-string "''"
 	echo-bell-background "#000000")
-  :init
   (echo-bell-mode t))
+
+(use-package page-break-lines
+  :after dashboard
+  :config
+  (page-break-lines-mode))
+
+;; Emacs Dashboard
+
+(use-package dashboard
+  :config
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
+	dashboard-banner-logo-title ""
+	dashboard-startup-banner 'logo
+	dashboard-center-content t
+	dashboard-show-shortcuts nil
+	dashboard-projects-backend 'project-el
+	dashboard-items '((recents  . 5)
+  			  (projects . 5))
+	dashboard-set-heading-icons t
+	dashboard-set-file-icons t
+	dashboard-set-init-info t)
+  (dashboard-setup-startup-hook))
 
 ;; completion
 
@@ -59,11 +98,11 @@
   (vertico-mode))
 
 (use-package savehist
-  :init
+  :config
   (savehist-mode))
 
 (use-package marginalia
-  :init
+  :config
   (marginalia-mode))
 
 (use-package orderless
@@ -83,12 +122,18 @@
         '("\\*Messages\\*"
           "Output\\*$"
 	  "\\*Warnings\\*"
+	  "\\*eshell\\*"
           help-mode
           compilation-mode))
   (popper-mode +1))
 
 ;; org-mode
+(use-package org
+  :straight nil
+  :mode ("\\*.org\\'"))
+
 (use-package org-bullets
+  :after org
   :hook
   (org-mode-hook . (lambda () (org-bullets-mode 1))))
 
@@ -103,14 +148,15 @@
 (use-package company
   :diminish
   :hook
-  (after-init . global-company-mode))
+  (after-init . global-company-mode)
+  :config
+  (setq company-idle-delay 0))
 
 (use-package company-box
-  :config
-  (setq company-idle-delay 0)
   :hook (company-mode . company-box-mode))
 
-(use-package company-web)
+(use-package company-web
+  :after web-mode)
 
 (use-package format-all
   :config
@@ -161,6 +207,7 @@
 ;; rust
 
 (use-package rust-mode
+  :mode ("\\*.rs\\'")
   :config
   (setq rust-format-on-save t)
   :hook
@@ -173,22 +220,17 @@
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
   :hook
-  ((my-vue-mode rjsx-mode python-mode) . eglot-ensure))
+  ((my-vue-mode rjsx-mode python-mode rust-mode) . eglot-ensure))
+
+(use-package eldoc
+  :straight nil
+  :hook
+  (eglot-connect . eldoc-mode))
 
 (use-package eldoc-box
-  :after eldoc
-  :config
-  (eldoc-box-hover-mode))
+  :commands (eldoc-box-hover-at-point-mode)
+  :hook
+  (eldoc-mode . eldoc-box-hover-at-point-mode))
 
-(defconst emacs-start-time (current-time))
-
-(add-hook 'after-init-hook
-          `(lambda ()
-             (let ((elapsed
-                    (float-time
-                     (time-subtract (current-time) emacs-start-time))))
-               (message "Loading %s...done (%.2fs) [after-init]"
-                        ,load-file-name elapsed))) t)
-
-(provide 'init)
-;;; init ends here
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))

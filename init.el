@@ -1,14 +1,5 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
-(defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-
 ;; package management
 (setq straight-use-package-by-default t
       package-enable-at-startup nil
@@ -30,9 +21,9 @@
 (straight-use-package 'use-package)
 
 ;; changing the defaults
-(tool-bar-mode -1)
-(menu-bar-mode -1)
+(setq header-line-format " ")
 (global-hl-line-mode t)
+(make-variable-buffer-local 'global-hl-line-mode)
 (global-display-line-numbers-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (show-paren-mode 1)
@@ -45,12 +36,12 @@
       tab-width 2)
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-s"))
+(global-unset-key (kbd "C-S-s"))
 
 ;; eye candy
-(use-package modus-vivendi-theme
+(use-package modus-themes
   :config
-  (setq modus-themes-vivendi-color-overrides
-	'((bg-main . "#191a1b")))
   (setq modus-themes-hl-line '(intense))
   (load-theme 'modus-vivendi t))
 
@@ -93,6 +84,8 @@
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-set-init-info t)
+  :hook
+  (dashboard-mode . (lambda () (setq global-hl-line-mode nil)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -116,8 +109,43 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
-;; window management
+(use-package consult
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c b" . consult-bookmark)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ;; M-g bindings (goto-map)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ;; M-s bindings (search-map)
+         ("C-s g" . consult-ripgrep)
+         ("C-s l" . consult-line)
+         ("C-s L" . consult-line-multi)
+         ("C-s u" . consult-focus-lines))
+  :init
+  (setq register-preview-delay 0
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window)
+  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+  :config
+  (setq consult-preview-key 'any)
+  (setq consult-narrow-key "<") ;; (kbd "C-+")
+  (setq consult-project-root-function
+        (lambda ()
+	  (when-let (project (project-current))
+	    (car (project-roots project)))))
+  )
 
+;; window management
 (use-package shackle
   :custom
   (shackle-lighter "")
@@ -152,25 +180,6 @@
   (popper-display-control nil)
   :config
   (popper-mode +1))
-
-(use-package dired-sidebar
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :straight t
-  :commands (dired-sidebar-toggle-sidebar)
-  :init
-  (add-hook 'dired-sidebar-mode-hook
-	    (lambda ()
-	      (unless (file-remote-p default-directory)
-		(auto-revert-mode))))
-  :config
-  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
-  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
-  :custom
-  (dired-sidebar-subtree-line-prefix "__")
-  (dired-sidebar-theme 'vscode)
-  (dired-sidebar-use-term-integration t)
-  (dired-sidebar-use-custom-font t))
-
 
 ;; org-mode and markdown
 (use-package org
@@ -233,8 +242,8 @@
 ;; web-stuff
 (use-package web-mode
   :mode
-  ("\\.css?\\'" . web-mode)
-  ("\\.html?\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
+  ("\\.css\\'" . web-mode)
   :custom
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
@@ -280,6 +289,7 @@
   :mode ("\\*.hs\\'")
   :custom
   (haskell-stylish-on-save t))
+
 ;; lsp
 (use-package eglot
   :config
@@ -298,12 +308,6 @@
   :commands (eldoc-box-hover-at-point-mode)
   :hook
   (eldoc-mode . eldoc-box-hover-at-point-mode))
-
-;;; misc
-
-(use-package kbd-mode
-  :straight nil
-  :load-path "~/.config/emacs/elisp/")
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))

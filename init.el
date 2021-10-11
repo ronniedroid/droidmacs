@@ -25,9 +25,11 @@
 (global-hl-line-mode t)
 (make-variable-buffer-local 'global-hl-line-mode)
 (global-display-line-numbers-mode)
+(setq tab-always-indent 'complete)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (show-paren-mode 1)
 (electric-pair-mode 1)
+(setq org-hide-emphasis-marker t)
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves"))
       inhibit-startup-message t
       create-lockfiles nil
@@ -43,7 +45,7 @@
 (use-package modus-themes
   :config
   (setq modus-themes-hl-line '(intense))
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (use-package which-key
   :config
@@ -110,40 +112,51 @@
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult
-  :bind (;; C-c bindings (mode-specific-map)
-         ("C-c b" . consult-bookmark)
-         ("C-c k" . consult-kmacro)
-         ;; C-x bindings (ctl-x-map)
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-         ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ;; M-g bindings (goto-map)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
-         ("M-g m" . consult-mark)
-         ;; M-s bindings (search-map)
-         ("C-s g" . consult-ripgrep)
-         ("C-s l" . consult-line)
-         ("C-s L" . consult-line-multi)
-         ("C-s u" . consult-focus-lines))
+  :bind
+  ("C-c b" . consult-bookmark)
+  ("C-c k" . consult-kmacro)
+  ("C-c f" . consult-flymake)
+  ("C-x b" . consult-buffer)
+  ("C-x 4 b" . consult-buffer-other-window)
+  ("C-x 5 b" . consult-buffer-other-frame)
+  ("M-g g" . consult-goto-line)
+  ("M-g o" . consult-outline)
+  ("M-g m" . consult-mark)
+  ("C-s g" . consult-ripgrep)
+  ("C-s l" . consult-line)
+  ("C-s m" . consult-line-multi)
+  ("C-s u" . consult-focus-lines)
+  ("C-y" . consult-yank-pop)
   :init
   (setq register-preview-delay 0
-        register-preview-function #'consult-register-format)
+	register-preview-function #'consult-register-format)
   (advice-add #'register-preview :override #'consult-register-window)
   (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+	xref-show-definitions-function #'consult-xref)
   :config
   (setq consult-preview-key 'any)
   (setq consult-narrow-key "<") ;; (kbd "C-+")
   (setq consult-project-root-function
-        (lambda ()
+	(lambda ()
 	  (when-let (project (project-current))
-	    (car (project-roots project)))))
-  )
+	    (car (project-roots project))))))
+
+;; region completion
+
+(use-package corfu
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
+  (corfu-quit-at-boundary nil)     ;; Automatically quit at word boundary
+  (corfu-quit-no-match t)        ;; Automatically quit if there is no match
+  (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
+  :init
+  (corfu-global-mode))
+
+;; Dabbrev works with Corfu
+(use-package dabbrev)
 
 ;; window management
 (use-package shackle
@@ -166,9 +179,10 @@
   (shackle-mode 1))
 
 (use-package popper
-  :bind (("C-`"   . popper-toggle-latest)
-	 ("M-`"   . popper-cycle)
-	 ("C-M-`" . popper-toggle-type))
+  :bind
+  ("C-c p p" .  popper-toggle-latest)
+  ("C-c p n" .   popper-cycle)
+  ("C-c p t" . popper-toggle-type)
   :custom
   (popper-reference-buffers
    '("\\*Messages\\*"
@@ -209,23 +223,9 @@
 ;; version control
 
 (use-package magit
-  :bind
-  ("C-x g" . magit-status))
+  :bind ("C-x g" .  magit-status))
 
 ;; coding
-
-(use-package company
-  :diminish
-  :hook
-  (after-init . global-company-mode)
-  :custom
-  (company-idle-delay 0))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
-(use-package company-web
-  :after web-mode)
 
 (use-package format-all
   :custom

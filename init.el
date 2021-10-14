@@ -21,7 +21,6 @@
 (straight-use-package 'use-package)
 
 ;; changing the defaults
-(setq header-line-format " ")
 (global-hl-line-mode t)
 (make-variable-buffer-local 'global-hl-line-mode)
 (global-display-line-numbers-mode)
@@ -46,6 +45,10 @@
   :config
   (setq modus-themes-hl-line '(intense))
   (load-theme 'modus-operandi t))
+
+(use-package modus-themes-exporter
+  :straight nil
+  :load-path "~/.config/emacs/lib")
 
 (use-package which-key
   :config
@@ -126,7 +129,7 @@
   ("C-s l" . consult-line)
   ("C-s m" . consult-line-multi)
   ("C-s u" . consult-focus-lines)
-  ("C-y" . consult-yank-pop)
+  ("M-y" . consult-yank-pop)
   :init
   (setq register-preview-delay 0
 	register-preview-function #'consult-register-format)
@@ -171,6 +174,7 @@
      ("*eshell*"                    :select t                          :align below :size 0.4 :popup t)
      ("*Shell Command Output*"      :select nil                                               )
      ("*Help*"                      :select t                          :align right :size 0.4 :popup t)
+     ("*Org Export Dispatcher*"     :select t   :inhibit-window-quit t :align right :size 0.4 :popup t)
      ("*Completions*"                                                  :size 0.3  :align t    )
      ("*Messages*"                  :select nil :inhibit-window-quit t :other t               )
      ("*info*"                      :select t   :inhibit-window-quit t                         :same t)

@@ -4,7 +4,7 @@
 (setq default-frame-alist `(
 			    (font . "CodeNewRoman Nerd Font Mono-12")
 			    (fullscreen . maximized)
-			    (undecorated . nil)
+			    (undecorated . t)
 			    (vertical-scroll-bars . nil)
 			    (horizontal-scroll-bars . nil)
 			    (menu-bar-lines . 0)

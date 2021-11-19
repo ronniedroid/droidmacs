@@ -44,7 +44,7 @@
 (use-package modus-themes
   :config
   (setq modus-themes-hl-line '(intense))
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
 
 (use-package modus-themes-exporter
   :straight nil
@@ -230,6 +230,9 @@
   :bind ("C-x g" .  magit-status))
 
 ;; coding
+
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
 
 (use-package format-all
   :custom

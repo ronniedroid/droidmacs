@@ -158,7 +158,26 @@
   :init
   (corfu-global-mode))
 
-;; Dabbrev works with Corfu
+(use-package cape
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  ;;(add-to-list 'completion-at-point-functions #'cape-file)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+  )
+
+(use-package kind-icon
+  :disabled
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
 (use-package dabbrev)
 
 ;; window management
@@ -172,6 +191,7 @@
    ;; CONDITION(:regexp)            :select     :inhibit-window-quit   :size+:align|:other     :same|:popup
    '((compilation-mode              :select nil                                               )
      ("*eshell*"                    :select t                          :align below :size 0.4 :popup t)
+     ("*-eshell\\*$"                    :select t                          :align below :size 0.4 :popup t)
      ("*Shell Command Output*"      :select nil                                               )
      ("*Help*"                      :select t                          :align right :size 0.4 :popup t)
      ("*Org Export Dispatcher*"     :select t   :inhibit-window-quit t :align right :size 0.4 :popup t)
@@ -192,7 +212,8 @@
    '("\\*Messages\\*"
      "Output\\*$"
      "\\*Warnings\\*"
-     "\\*eshell\\*"
+     "-eshell\\*$"
+     eshell-mode
      help-mode
      compilation-mode))
   (popper-display-control nil)
@@ -241,6 +262,7 @@
 			   ("python" "black")
 			   ("javascript" "prettier")
 			   ("vuejs" "prettier")
+			   ("Svelte" "prettier")
 			   ))
   :hook
   (format-all-mode . format-all-ensure-formatter)
@@ -268,17 +290,27 @@
   :mode
   ("\\.vue\\'" . my-vue-mode))
 
+(define-derived-mode my-svelte-mode web-mode "svelteMode"
+  "a major mode derived from web-mode for editing svelte files with eglot")
+
+(use-package my-svelte-mode
+  :straight nil
+  :mode
+  ("\\.svelte\\'" . my-svelte-mode))
+
 (use-package emmet-mode
   :custom
   (emmet-self-closing-tag-style " /")
   :hook
-  ((web-mode my-vue-mode rjsx-mode) . emmet-mode))
+  ((web-mode my-vue-mode my-svelte-mode rjsx-mode) . emmet-mode))
 
 ;; javascript
 
 (use-package rjsx-mode
   :mode
   ("\\.js\\'" . rjsx-mode)
+  ("\\.ts\\'" . rjsx-mode)
+  ("\\.cjs\\'" . rjsx-mode)
   ("\\.jsx\\'" . rjsx-mode))
 
 ;; rust
@@ -302,9 +334,10 @@
   :config
   (add-to-list 'eglot-server-programs '(my-vue-mode "vls"))
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
+  (add-to-list 'eglot-server-programs '(my-svelte-mode "svelte-language-server"))
   (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
   :hook
-  ((my-vue-mode rjsx-mode python-mode rust-mode haskell-mode) . eglot-ensure))
+  ((my-vue-mode my-svelte-mode rjsx-mode python-mode rust-mode haskell-mode) . eglot-ensure))
 
 (use-package eldoc
   :straight nil
@@ -315,6 +348,38 @@
   :commands (eldoc-box-hover-at-point-mode)
   :hook
   (eldoc-mode . eldoc-box-hover-at-point-mode))
+
+(defun rn/convert-with-pandoc (name &optional arg)
+  "Convert current file to another format with pandoc"
+  (interactive "FOutput file: \nP")
+  (let ((string
+         (or (dired-get-subdir)
+             (mapconcat #'identity
+                        (if arg
+                            (cond ((zerop (prefix-numeric-value arg))
+                                   (dired-get-marked-files))
+                                  ((consp arg)
+                                   (dired-get-marked-files t))
+                                  (t
+                                   (dired-get-marked-files
+				    'no-dir (prefix-numeric-value arg))))
+                          (dired-get-marked-files 'no-dir))
+                        " "))))
+    (unless (string= string "")
+      (if (<= (string-to-number
+	       (substring (dired-number-of-marked-files) 0 1))
+	      (string-to-number "1"))
+	  (cond ((message string name)
+		 (shell-command (concat "pandoc " "'" string "'" " -o " name))
+		 (dired-revert)))
+	(message "more than one file marked")))))
+
+(use-package dired
+  :straight nil
+  :bind (:map dired-mode-map
+	      ("C-c" . rn/convert-with-pandoc)))
+
+(use-package ox-reveal)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))

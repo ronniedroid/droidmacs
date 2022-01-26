@@ -44,7 +44,7 @@
 (use-package modus-themes
   :config
   (setq modus-themes-hl-line '(intense))
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (use-package modus-themes-exporter
   :straight nil
@@ -171,7 +171,6 @@
   )
 
 (use-package kind-icon
-  :disabled
   :after corfu
   :custom
   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
@@ -252,8 +251,8 @@
 
 ;; coding
 
-(use-package exec-path-from-shell
-  :config (exec-path-from-shell-initialize))
+					;(use-package exec-path-from-shell
+					;  :config (exec-path-from-shell-initialize))
 
 (use-package format-all
   :custom

@@ -251,8 +251,8 @@
 
 ;; coding
 
-					;(use-package exec-path-from-shell
-					;  :config (exec-path-from-shell-initialize))
+;;(use-package exec-path-from-shell
+;;  :config (exec-path-from-shell-initialize))
 
 (use-package format-all
   :custom
@@ -344,9 +344,9 @@
   (eglot-connect . eldoc-mode))
 
 (use-package eldoc-box
-  :commands (eldoc-box-hover-at-point-mode)
+  :commands (eldoc-box-hover-at-point-mode eldoc-box-hover-mode)
   :hook
-  (eldoc-mode . eldoc-box-hover-at-point-mode))
+  (eldoc-mode . eldoc-box-hover-mode))
 
 (defun rn/convert-with-pandoc (name &optional arg)
   "Convert current file to another format with pandoc"
@@ -378,7 +378,13 @@
   :bind (:map dired-mode-map
 	      ("C-c" . rn/convert-with-pandoc)))
 
-(use-package ox-reveal)
+(use-package project
+  :bind (:map project-prefix-map
+	      ("g" . magit-status)
+	      ("G" . project-find-regexp))
+  :config
+  (add-to-list 'project-switch-commands
+               '(magit-status "Magit status") t))
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))

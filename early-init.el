@@ -28,6 +28,8 @@
 (setq default-frame-alist `(
 			    (vertical-scroll-bars . nil)
 			    (horizontal-scroll-bars . nil)
+                            (fullscreen . maximized)
+                            (undecorated . t)
 			    (menu-bar-lines . 0)
 			    (tool-bar-lines . 0)
 			    (background-color . "white")

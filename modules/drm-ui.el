@@ -6,21 +6,21 @@
 (global-display-line-numbers-mode)
 
 (set-face-attribute 'default nil
-		    :font "CodeNewRoman Nerd Font Mono"
+		    :font "JetBrainsMono Nerd Font Mono"
 		    :height 120
 		    :weight 'regular)
 
 (straight-use-package 'all-the-icons)
 (straight-use-package 'doom-modeline)
-(straight-use-package 'modus-themes)
 (straight-use-package 'helpful)
 (straight-use-package 'which-key)
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
+(straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el" ))
 
 ;; theme
 (setq modus-themes-hl-line '(intense))
-(load-theme 'modus-operandi t)
+(load-theme 'modus-vivendi t)
 
 ;; dashboard
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
@@ -61,5 +61,18 @@
 (global-set-key [remap describe-key] #'helpful-key)
 (global-set-key (kbd "C-h F") #'helpful-function)
 (global-set-key (kbd "C-h C") #'helpful-command)
+
+(ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+                                     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+                                     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+                                     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+                                     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+                                     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+                                     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+                                     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+                                     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+                                     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+                                     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+(global-ligature-mode t)
 
 (provide 'drm-ui)

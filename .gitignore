@@ -6,3 +6,5 @@ recentf
 /.cache/
 /eln-cache/
 /transient/
+/cider-history
+/var/

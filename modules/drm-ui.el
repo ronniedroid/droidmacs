@@ -20,7 +20,7 @@
 
 ;; theme
 (setq modus-themes-hl-line '(intense))
-(load-theme 'modus-vivendi t)
+(load-theme 'modus-operandi t)
 
 ;; dashboard
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))

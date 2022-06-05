@@ -4,6 +4,8 @@
 (straight-use-package 'emmet-mode)
 (straight-use-package 'web-mode)
 (straight-use-package 'rjsx-mode)
+(straight-use-package
+ '(lsp-volar :type git :host github :repo "jadestrong/lsp-volar"))
 
 ;; setup emmet
 (setq emmet-self-closing-tag-style " /")

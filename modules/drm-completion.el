@@ -8,6 +8,7 @@
 (straight-use-package 'corfu)
 (straight-use-package 'cape)
 (straight-use-package 'dabbrev)
+(straight-use-package 'kind-icon)
 
 (defun drm-completion/minibuffer-backward-kill (arg)
   "When minibuffer is completing a file name delete up to parent
@@ -75,5 +76,7 @@ folder, otherwise delete a word"
 ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
 ;;(add-to-list 'completion-at-point-functions #'cape-line)
 
+(setq kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
 
 (provide 'drm-completion)

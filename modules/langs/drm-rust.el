@@ -7,6 +7,6 @@
 (add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-to-list 'auto-mode-alist '("\\*.rs\\'" . rust-mode))
 
-(add-hook 'rust-mode-hook 'eglot-ensure)
+(add-hook 'rust-mode-hook #'lsp)
 
 (provide 'drm-rust)

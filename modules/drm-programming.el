@@ -39,7 +39,7 @@
 ;; configure languages and their servers
 (setq eglot-server-programs
       (append '(
-                (my-vue-mode . "vls")
+                (my-vue-mode . ("vls"))
                 (my-svelte-mode . "svelte-language-server"))
               eglot-server-programs))
 ;; do not load language server capabilities that do not work in egot

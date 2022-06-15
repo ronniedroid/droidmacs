@@ -13,13 +13,10 @@
 (setq web-mode-enable-current-element-highlight t)
 
 (define-derived-mode my-vue-mode web-mode "Vue "
-  "a major mode derived from web-mode for editing vue files with eglot")
-
-(define-derived-mode my-svelte-mode web-mode "Svelte "
-  "a major mode derived from web-mode for editing svelte files with eglot")
+  "a major mode derived from web-mode for editing vue files with lsp")
 
 (define-derived-mode my-css-mode web-mode "CSS "
-  "a major mode derived from web-mode for editing svelte files with eglot")
+  "a major mode derived from web-mode for editing svelte files with lsp")
 
 (setq auto-mode-alist
       (append '(("\\.html\\'" . web-mode)
@@ -28,8 +25,7 @@
                 ("\\.ts\\'" . rjsx-mode)
                 ("\\.cjs\\'" . rjsx-mode)
                 ("\\.jsx\\'" . rjsx-mode)
-                ("\\.vue\\'" . my-vue-mode)
-                ("\\.svelte\\'" . my-svelte-mode))
+                ("\\.vue\\'" . my-vue-mode))
               auto-mode-alist))
 
 ;; setup emmet

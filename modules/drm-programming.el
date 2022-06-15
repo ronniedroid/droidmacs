@@ -34,5 +34,6 @@
 (add-hook 'before-save-hook 'format-all-mode)
 
 (require 'lsp-mode)
+(setq lsp-enable-snippet nil)
 
 (provide 'drm-programming)

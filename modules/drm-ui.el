@@ -43,7 +43,7 @@
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info t)
-(add-hook 'dashboard-mode-hook  '(lambda () (setq global-hl-line-mode nil)))
+(add-hook 'dashboard-mode-hook  #'(lambda () (setq global-hl-line-mode nil)))
 (dashboard-setup-startup-hook)
 
 (with-eval-after-load 'dashboard
@@ -67,41 +67,45 @@ Containing LEFT, and RIGHT aligned respectively."
             right)))
 
 ;; set what the modeline should show and in what order
-(setq-default mode-line-format
-              '((:eval
-                 (simple-mode-line-render
-                  ;; Left.
-                  (quote ("%e"
-                          mode-line-front-space
-                          mode-line-modified
-                          mode-line-frame-identification
-                          (:propertize ("" mode-line-buffer-identification)
-                                       face '(:foreground "purple"))
-                          " "
-                          mode-line-position
-                          " "
-                          (vc-mode vc-mode)))
-                  ;; Right.
-                  (quote (""
-                          mode-line-modes
-                          " "
-                          mode-line-misc-info
-                          mode-line-end-spaces))))))
+(modus-themes-with-colors
+  (setq-default mode-line-format
+                '((:eval
+                   (simple-mode-line-render
+                    ;; Left.
+                    (quote ("%e"
+                            mode-line-front-space
+                            mode-line-modified
+                            mode-line-frame-identification
+                            mode-line-buffer-identification
+                            " "
+                            mode-line-position
+                            " "
+                            (vc-mode vc-mode)))
+                    ;; Right.
+                    (quote (""
+                            mode-line-modes
+                            " "
+                            mode-line-misc-info
+                            (dashboard-mode display-battery-mode)
+                            (dashboard-mode display-time-mode)
+                            mode-line-end-spaces)))))))
+
 
 ;; change how the mode-line-modes is displayed in the modeline
-(setq mode-line-modes
-      (list
-       `(:propertize ("" minor-mode-alist)
-		     mouse-face mode-line-highlight
-		     local-map ,mode-line-minor-mode-keymap)
-       " "
-       `(:propertize ("" mode-name)
-                     face '(:foreground "green")
-	             mouse-face mode-line-highlight
-	             local-map ,mode-line-major-mode-keymap)
-       '("" mode-line-process)))
+(modus-themes-with-colors
+  (setq mode-line-modes
+        (list
+         `(:propertize ("" minor-mode-alist)
+		       mouse-face mode-line-highlight
+		       local-map ,mode-line-minor-mode-keymap)
+         " "
+         `(:propertize ("" mode-name)
+                       'face 'bold
+	               mouse-face mode-line-highlight
+	               local-map ,mode-line-major-mode-keymap)
+         '("" mode-line-process))))
 
-;; disaple flymake title in modeline (only show counters)
+;; disable flymake title in modeline (only show counters)
 (setq flymake-mode-line-title "fm")
 
 ;; correctly show the underlines when the padding is increased
@@ -114,11 +118,12 @@ Containing LEFT, and RIGHT aligned respectively."
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
-;; dim settings
+;; dim settings, hide or change how major and minor modes show in the modline
 (dim-major-names
  '((emacs-lisp-mode           "EL")
    (inferior-emacs-lisp-mode  "EL<")
    (clojure-mode              "CLJ")
+   (dashboard-mode             "")
    (clojurescript-mode         "CLJS")))
 
 (dim-minor-names
@@ -130,6 +135,7 @@ Containing LEFT, and RIGHT aligned respectively."
    (which-key-mode "" which-key)
    (lsp-lens-mode  "" lsp-lens)
    (emmet-mode     ""  emmet)
+   (page-break-lines-mode "" page-break-lines)
    (subword-mode   ""  subword)))
 
 ;; Make `describe-*' screens more helpful!

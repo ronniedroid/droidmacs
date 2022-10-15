@@ -8,6 +8,7 @@
 (straight-use-package 'corfu)
 (straight-use-package 'cape)
 (straight-use-package 'dabbrev)
+(straight-use-package 'kind-icon)
 
 (defun drm-completion/minibuffer-backward-kill (arg)
   "When minibuffer is completing a file name delete up to parent
@@ -63,7 +64,7 @@ folder, otherwise delete a word"
 (setq corfu-quit-no-match t)        ;; Automatically quit if there is no match
 (setq corfu-echo-documentation nil) ;; Do not show documentation in the echo area
 ;;start corfu
-(corfu-global-mode)
+(global-corfu-mode)
 
 
 ;; Add `completion-at-point-functions', used by `completion-at-point'.
@@ -75,5 +76,7 @@ folder, otherwise delete a word"
 ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
 ;;(add-to-list 'completion-at-point-functions #'cape-line)
 
+(setq kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
 
 (provide 'drm-completion)

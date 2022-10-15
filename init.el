@@ -3,6 +3,8 @@
 (add-to-list 'load-path (expand-file-name "modules/langs" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
 
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 ;; Set default coding system (especially for Windows)
 (set-default-coding-systems 'utf-8)
 

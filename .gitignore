@@ -8,3 +8,5 @@ recentf
 /transient/
 /cider-history
 /var/
+/elpa/
+/lsp-cache/

@@ -37,8 +37,12 @@
 			    (mouse-color . "black")
 			    ))
 
+
+
+;; Add frame borders and window dividers
+(setq-default left-margin-width 2)
+
 ;; Make the initial buffer load faster by setting its mode to fundamental-mode
-(setq initial-major-mode 'fundamental-mode)
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
 (setq create-lockfiles nil)
 (setq initial-scratch-message nil)

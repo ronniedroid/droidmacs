@@ -19,4 +19,6 @@
 (global-set-key (kbd "C-; ;") 'avy-goto-char-timer)
 (global-set-key (kbd "C-; o") 'avy-goto-char)
 
+(setq org-export-allow-bind-keywords t)
+
 (provide 'drm-editing)

@@ -3,7 +3,8 @@
 ;; some defaults
 (global-hl-line-mode t)
 (make-variable-buffer-local 'global-hl-line-mode)
-(global-display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook (lambda () (setq left-margin-width 0)))
 
 (set-face-attribute 'default nil
 		    :font "JetBrainsMono Nerd Font Mono"
@@ -17,19 +18,9 @@
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el" ))
+(straight-use-package '(ef-themes :type git :host nil :repo "https://git.sr.ht/~protesilaos/ef-themes"))
 
-;; theme
-(setq modus-themes-hl-line '(accented))
-(setq modus-themes-mode-line '(accented 4))
-(setq modus-themes-region '(bg-only))
-(setq modus-themes-syntax '(green-strings yellow-comments))
-(setq modus-themes-bold-constructs t)
-(setq modus-themes-paren-match '(bold intense))
-(setq modus-themes-italic-constructs t)
-(setq modus-themes-completions '((matches . (extrabold intense))
-                                 (selection . (accented))))
-(load-theme 'modus-operandi t)
-(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+(load-theme 'ef-light t)
 
 ;; dashboard
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
@@ -57,7 +48,7 @@
 ;; function to split modeline into left and right sides
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length.
-Containing LEFT, and RIGHT aligned respectively."
+  Containing LEFT, and RIGHT aligned respectively."
   (let ((available-width
          (- (window-total-width)
             (+ (length (format-mode-line left))
@@ -66,44 +57,41 @@ Containing LEFT, and RIGHT aligned respectively."
             (list (format (format "%%%ds" available-width) ""))
             right)))
 
-;; set what the modeline should show and in what order
-(modus-themes-with-colors
-  (setq-default mode-line-format
-                '((:eval
-                   (simple-mode-line-render
-                    ;; Left.
-                    (quote ("%e"
-                            mode-line-front-space
-                            mode-line-modified
-                            mode-line-frame-identification
-                            mode-line-buffer-identification
-                            " "
-                            mode-line-position
-                            " "
-                            (vc-mode vc-mode)))
-                    ;; Right.
-                    (quote (""
-                            mode-line-modes
-                            " "
-                            mode-line-misc-info
-                            (dashboard-mode display-battery-mode)
-                            (dashboard-mode display-time-mode)
-                            mode-line-end-spaces)))))))
+(setq-default mode-line-format
+              '((:eval
+                 (simple-mode-line-render
+                  ;; Left.
+                  (quote ("%e"
+                          mode-line-front-space
+                          mode-line-modified
+                          mode-line-frame-identification
+                          mode-line-buffer-identification
+                          " "
+                          mode-line-position
+                          " "
+                          (vc-mode vc-mode)))
+                  ;; Right.
+                  (quote (""
+                          mode-line-modes
+                          " "
+                          mode-line-misc-info
+                          (dashboard-mode display-battery-mode)
+                          (dashboard-mode display-time-mode)
+                          mode-line-end-spaces))))))
 
 
 ;; change how the mode-line-modes is displayed in the modeline
-(modus-themes-with-colors
-  (setq mode-line-modes
-        (list
-         `(:propertize ("" minor-mode-alist)
-		       mouse-face mode-line-highlight
-		       local-map ,mode-line-minor-mode-keymap)
-         " "
-         `(:propertize ("" mode-name)
-                       'face 'bold
-	               mouse-face mode-line-highlight
-	               local-map ,mode-line-major-mode-keymap)
-         '("" mode-line-process))))
+(setq mode-line-modes
+      (list
+       `(:propertize ("" minor-mode-alist)
+		     mouse-face mode-line-highlight
+		     local-map ,mode-line-minor-mode-keymap)
+       " "
+       `(:propertize ("" mode-name)
+                     face bold
+	             mouse-face mode-line-highlight
+	             local-map ,mode-line-major-mode-keymap)
+       '("" mode-line-process)))
 
 ;; disable flymake title in modeline (only show counters)
 (setq flymake-mode-line-title "fm")

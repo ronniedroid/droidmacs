@@ -25,7 +25,7 @@
 (setq cider-font-lock-dynamically '(macro core function var))
 (setq cider-repl-display-help-banner nil)
 
-(add-hook 'clojure-mode-hook #'lsp)
+(add-hook 'clojure-mode-hook #'eglot-ensure)
 ;; (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 
 (provide 'drm-clojure)

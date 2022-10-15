@@ -3,6 +3,7 @@
 (straight-use-package 'project)
 
 (require 'project)
+(tab-bar-mode 1)
 
 (with-eval-after-load 'project
   (define-key project-prefix-map (kbd "g") 'magit-status)
@@ -12,14 +13,19 @@
       (append '((magit-status "Magit status"))
               project-switch-commands))
 
-;; (defun project-other-tab-command ()
-;;   "Do something useful."
-;;   (interactive)
-;;   (let ((tab-name (car (last (project-current)))))
-;;     (project--other-place-command '((display-buffer-in-new-tab)))
-;;     (tab-bar-rename-tab tab-name)))
+(defun tab-bar-tab-name-current-or-project ()
+  "Generate tab name from the buffer of the selected window."
+  (if (project-current)
+      (thread-first (project-current)
+                    last
+                    car
+                    (split-string "/")
+                    butlast
+                    last
+                    car
+                    ((lambda (s) (concat " " s))))
+    (buffer-name (window-buffer (minibuffer-selected-window)))))
 
-
-;; (split-string (car (last (project-current))) "/")
+(setq tab-bar-tab-name-function #'tab-bar-tab-name-current-or-project)
 
 (provide 'drm-projects)

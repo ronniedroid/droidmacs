@@ -64,7 +64,7 @@ folder, otherwise delete a word"
 (setq corfu-quit-no-match t)        ;; Automatically quit if there is no match
 (setq corfu-echo-documentation nil) ;; Do not show documentation in the echo area
 ;;start corfu
-(corfu-global-mode)
+(global-corfu-mode)
 
 
 ;; Add `completion-at-point-functions', used by `completion-at-point'.

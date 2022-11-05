@@ -1,8 +1,3 @@
-;; Add the modules folder to the load path
-(add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/langs" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
-
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; Set default coding system (especially for Windows)
@@ -22,25 +17,22 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;; Find the user configuration file
-(defvar drm-config-file (expand-file-name "config.el" drm-config-path)
-  "The user's configuration file.")
+;; Add the modules folder to the load path
+(add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/langs" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/drm-functions/" user-emacs-directory))
 
-;; Load the user configuration file if it exists
-(when (file-exists-p drm-config-file)
-  (load drm-config-file nil 'nomessage))
+;;load component modules
+(require 'drm-ui)
+(require 'drm-defaults)
+(require 'drm-completion)
+(require 'drm-windows)
+(require 'drm-editing)
+(require 'drm-productivity)
+(require 'drm-programming)
+(require 'drm-projects)
+;; load my custom lisp modules
+(require 'drm-dired-convert-with-pandoc)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values '((lsp-enabled-clients quote (vls)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

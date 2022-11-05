@@ -39,7 +39,6 @@ folder, otherwise delete a word"
 (marginalia-mode 1)
 
 ;; Set some consult bindings
-(global-set-key (kbd "C-s s") 'consult-line)
 (global-set-key (kbd "C-s k") 'consult-kmacro)
 (global-set-key (kbd "C-s f") 'consult-flymake)
 (global-set-key (kbd "C-x b") 'consult-buffer)

@@ -13,7 +13,7 @@
       (append '((magit-status "Magit status"))
               project-switch-commands))
 
-(defun tab-bar-tab-name-current-or-project ()
+(defun drm-tab-bar-tab-name-current-or-project ()
   "Generate tab name from the buffer of the selected window."
   (if (project-current)
       (thread-first (project-current)
@@ -22,10 +22,9 @@
                     (split-string "/")
                     butlast
                     last
-                    car
-                    ((lambda (s) (concat " " s))))
+                    car)
     (buffer-name (window-buffer (minibuffer-selected-window)))))
 
-(setq tab-bar-tab-name-function #'tab-bar-tab-name-current-or-project)
+(setq tab-bar-tab-name-function #'drm-tab-bar-tab-name-current-or-project)
 
 (provide 'drm-projects)

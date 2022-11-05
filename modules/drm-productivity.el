@@ -1,15 +1,9 @@
 ;;; drm-productivity.el -*- lexical-binding: t; -*-
 
-;; (straight-use-package 'org-bullets)
 (straight-use-package 'org-modern)
 (straight-use-package 'markdown-mode)
-
 (straight-use-package
  '(denote :type git :host github :repo "protesilaos/denote"))
-
-;; (add-hook 'org-mode-hook 'org-indent-mode)
-;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-;; (add-hook 'org-mode-hook #'org-modern-mode)
 
 (setq
  ;; Edit settings
@@ -36,7 +30,12 @@
 
 (global-org-modern-mode)
 
+;;Org agenda
+(setq org-agenda-files '("~/Nextcloud/org/Todo.org"))
+
+(setq org-image-actual-width nil)
 (setq org-latex-inputenc-alist '(("utf8" . "utf8x")))
+(setq org-html-validation-link nil)
 
 (autoload 'markdown-mode "markdown-mode"
   "major mode for editing markdown files" t)
@@ -85,5 +84,7 @@
     (define-key map (kbd "C-c n I") #'denote-link-add-links)
     (define-key map (kbd "C-c n l") #'denote-link-find-file) ; "list" links
     (define-key map (kbd "C-c n b") #'denote-link-backlinks)))
+
+(global-set-key (kbd "C-c a") #'org-agenda)
 
 (provide 'drm-productivity)

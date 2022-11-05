@@ -3,6 +3,7 @@
 ;; some defaults
 (global-hl-line-mode t)
 (make-variable-buffer-local 'global-hl-line-mode)
+(setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook (lambda () (setq left-margin-width 0)))
 
@@ -24,13 +25,13 @@
 
 ;; dashboard
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-(setq dashboard-banner-logo-title "")
+(setq dashboard-banner-logo-title "DroidMacs")
 (setq dashboard-startup-banner 'logo)
 (setq dashboard-center-content t)
 (setq dashboard-show-shortcuts nil)
 (setq dashboard-projects-backend 'project-el)
 (setq dashboard-items '((recents  . 5)
-  			(projects . 5)))
+                        (bookmarks . 5)))
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info t)

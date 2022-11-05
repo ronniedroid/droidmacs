@@ -7,6 +7,7 @@
 (straight-use-package 'xref)
 (straight-use-package 'rainbow-delimiters)
 (straight-use-package 'eglot)
+(straight-use-package 'eldoc)
 (straight-use-package 'restclient)
 (straight-use-package 'ob-restclient)
 
@@ -46,5 +47,9 @@
 (add-to-list 'eglot-server-programs '(drm-css-mode . ("vscode-css-language-server" "--stdio")))
 ;; do not load language server capabilities that do not work in egot
 (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+
+;; start eldoc when eglot is started
+(add-hook 'eglot-managed-mode-hook #'eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
 
 (provide 'drm-programming)

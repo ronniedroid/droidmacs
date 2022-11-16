@@ -22,9 +22,11 @@
 (setq package-enable-at-startup nil)
 (setq straight-use-package-by-default t)
 
-;; Remove some unneeded UI elements (the user can turn back on anything they wish)
+;; Remove some unneeded UI elements
 (setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 
+;; set the frame settings here
 (setq default-frame-alist `(
 			    (vertical-scroll-bars . nil)
 			    (horizontal-scroll-bars . nil)
@@ -37,16 +39,12 @@
 			    (mouse-color . "black")
 			    ))
 
-
-
-;; Add frame borders and window dividers
+;; Add frame borders
 (setq-default left-margin-width 2)
 
 ;; Make the initial buffer load faster by setting its mode to fundamental-mode
+(setq initial-major-mode 'fundamental-mode)
+
+;; housekeeping
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
 (setq create-lockfiles nil)
-(setq initial-scratch-message nil)
-
-(defvar drm-config-path
-  (expand-file-name "~/.config/emacs/")
-  "The user's drm configuration path.")

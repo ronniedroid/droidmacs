@@ -27,7 +27,7 @@
 
 ;; Modus themes settings
 (setq modus-themes-syntax '(yellow-comments green-strings))
-(setq modus-themes-mode-line '(borderless padded accented))
+(setq modus-themes-mode-line '(borderless accented))
 (setq modus-themes-region '(bg-only))
 (setq modus-themes-completions '((matches . (extrabold underline))
                                  (selection .(semibold accented))))
@@ -76,8 +76,7 @@
 (setq tab-bar-new-tab-choice "*scratch*")
 (setq tab-bar-tab-hints nil)
 
-(setq tab-bar-format '(tab-bar-format-menu-bar
-                       tab-bar-format-tabs
+(setq tab-bar-format '(tab-bar-format-tabs
                        tab-bar-separator
                        tab-bar-format-align-right
                        tab-bar-format-global))

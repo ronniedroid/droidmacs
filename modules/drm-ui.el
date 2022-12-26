@@ -7,6 +7,7 @@
 (straight-use-package 'helpful)
 (straight-use-package 'page-break-lines)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el" ))
+(straight-use-package '(modus-themes :type git :host github :repo "protesilaos/modus-themes" :branch "version-4"))
 
 ;; Some defaults
 (global-hl-line-mode t)
@@ -25,31 +26,10 @@
 		    :height 120
 		    :weight 'regular)
 
-;; Modus themes settings
-(setq modus-themes-syntax '(yellow-comments green-strings))
-(setq modus-themes-mode-line '(borderless accented))
-(setq modus-themes-region '(bg-only))
-(setq modus-themes-completions '((matches . (extrabold underline))
-                                 (selection .(semibold accented))))
-(setq modus-themes-bold-constructs t)
-(setq modus-themes-italic-constructs t)
-(setq modus-themes-paren-match '(bold))
-(setq modus-themes-hl-line '(accented))
-(setq modus-themes-prompts '(intense bold))
-
-(setq modus-themes-headings
-      (quote ((0 . (rainbow))
-              (1 . (rainbow extrabold overline))
-              (2 . (rainbow))
-              (3 . (rainbow))
-              (t . (rainbow)))))
-
-(setq modus-themes-org-blocks 'tinted-background)
-
 (global-set-key [f5] #'modus-themes-toggle)
 
 ;; Set default theme
-(load-theme 'modus-operandi t)
+(load-theme 'modus-operandi-tinted t)
 
 ;; Dahboard
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))

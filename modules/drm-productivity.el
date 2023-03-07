@@ -2,8 +2,8 @@
 
 (straight-use-package 'org-modern)
 (straight-use-package 'markdown-mode)
-(straight-use-package
- '(denote :type git :host github :repo "protesilaos/denote"))
+(straight-use-package 'denote)
+(straight-use-package 'consult-notes)
 
 (setq
  ;; Edit settings
@@ -48,27 +48,21 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\*.org\\'" . org-mode))
 
-
+;; Denote configuration
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/notes/"))
+(setq denote-directory (expand-file-name "~/Nextcloud/Notes/"))
 (setq denote-known-keywords
-      '("emacs" "programming" "jokes" "technology"))
+      '("emacs" "programming" "general"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-file-type nil)
+(setq denote-file-type 'org)
+(setq denote-prompts '(title keywords))
 
 ;; We allow multi-word keywords by default.  The author's personal
 ;; preference is for single-word keywords for a more rigid workflow.
-(setq denote-allow-multi-word-keywords nil)
+(setq denote-allow-multi-word-keywords t)
 
-(setq denote-front-matter-date-format nil) ; change this to `org-timestamp' or custom string
-
-;; (require 'denote-retrieve)
-;; (require 'denote-link)
-
-;; If you use Markdown or plain text files (Org renders links as buttons
-;; right away)
-;; (add-hook 'find-file-hook #'denote-link-buttonize-buffer)
+(consult-notes-denote-mode t)
 
 (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
 

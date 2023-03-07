@@ -20,6 +20,7 @@
 (require 'drm-web)
 (require 'drm-rust)
 (require 'drm-clojure)
+(require 'drm-go)
 
 ;; use system PATH for emacs
 (exec-path-from-shell-initialize)
@@ -30,10 +31,12 @@
 ;; setup formatting for programming languages
 (setq format-all-show-errors 'never)
 (setq format-all-formatters '(
-			      ("Python" "black")
-			      ("vue" "prettier")
-                              ("Astro" "astro-ls")
+			      ("Python" black)
+			      ("vue" prettier)
+                              ("Astro" astro-ls)
+                              ("go" gpfmt)
                               ("Clojure" (zprint "{:style :community :width 50}"))
+                              ("PHP" prettier)
 			      ))
 (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
 (add-hook 'prog-mode-hook 'format-all-mode)
@@ -45,6 +48,7 @@
 (add-to-list 'eglot-server-programs '(drm-vue-mode . ("vls" "--stdio")))
 (add-to-list 'eglot-server-programs '(drm-html-mode . ("vscode-html-language-server" "--stdio")))
 (add-to-list 'eglot-server-programs '(drm-css-mode . ("vscode-css-language-server" "--stdio")))
+(add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
 ;; do not load language server capabilities that do not work in egot
 (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
 

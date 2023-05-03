@@ -26,9 +26,6 @@
 (define-derived-mode drm-html-mode web-mode "HTML "
   "a major mode derived from web-mode for editing CSS files with eglot")
 
-(define-derived-mode drm-blade-mode web-mode "Blade "
-  "a major mode derived from web-mode for editing blade files with eglot")
-
 (add-to-list 'auto-mode-alist '("\\.html\\'" . drm-html-mode))
 (add-to-list 'auto-mode-alist '("\\.astro\\'" . drm-astro-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . drm-css-mode))
@@ -38,7 +35,7 @@
 (add-to-list 'auto-mode-alist '("\\.cjs\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . drm-vue-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . drm-blade-mode))
+(add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
 
 ;; setup emmet
 (setq emmet-self-closing-tag-style " /")

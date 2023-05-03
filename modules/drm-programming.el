@@ -21,6 +21,7 @@
 (require 'drm-rust)
 (require 'drm-clojure)
 (require 'drm-go)
+(require 'drm-haskell)
 
 ;; use system PATH for emacs
 (exec-path-from-shell-initialize)
@@ -51,6 +52,14 @@
 (add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
 ;; do not load language server capabilities that do not work in egot
 (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+;;config
+(setq-default eglot-workspace-configuration
+              '((haskell
+                 (plugin
+                  (stan
+                   (globalOn . :json-false))))))
+(setq eglot-autoshutdown t)  ;; shutdown language server after closing last file
+(setq eglot-confirm-server-initiated-edits nil)  ;; allow edits without confirmation
 
 ;; start eldoc when eglot is started
 (add-hook 'eglot-managed-mode-hook #'eldoc-mode)

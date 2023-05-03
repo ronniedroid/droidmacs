@@ -1,7 +1,17 @@
 ;;; drm-mode-line.el -*- lexical-binding: t; -*-
 
-;; require a function from ./drm-functions to split modeline into left and right sides
-(require 'drm-simple-mode-line-render)
+(straight-use-package 'dim)
+
+(defun drm-simple-mode-line-render (left right)
+  "Return a string of `window-width' length.
+  Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width
+         (- (window-total-width)
+            (+ (length (format-mode-line left))
+               (length (format-mode-line right))))))
+    (append left
+            (list (format (format "%%%ds" available-width) ""))
+            right)))
 
 (setq-default mode-line-format
               '((:eval
@@ -38,5 +48,37 @@
 	             mouse-face mode-line-highlight
 	             local-map ,mode-line-major-mode-keymap)
        '("" mode-line-process)))
+
+;; Disable flymake title in modeline (only show counters)
+(setq flymake-mode-line-title " ⚑")
+
+;; Correctly show the underlines when the padding is increased
+(setq x-underline-at-descent-line t)
+;; Enable column number in the modline and change the position construct format
+(column-number-mode t)
+(setq mode-line-position (list "%l:%C"))
+
+;; Add directory name to files with the same name
+(setq uniquify-buffer-name-style 'forward)
+(require 'uniquify)
+
+;; Dim settings, hide or change how major and minor modes show in the modline
+(dim-major-names
+ '((emacs-lisp-mode           "ELISP")
+   (inferior-emacs-lisp-mode  "ELISP<")
+   (clojure-mode              "CLJ")
+   (dashboard-mode             "Dashboard")
+   (clojurescript-mode         "CLJS")))
+
+(dim-minor-names
+ '((visual-line-mode   " ↩")
+   (auto-fill-function " ↵")
+   (eldoc-mode         ""    eldoc)
+   (ws-butler-mode    ""  ws-butler)
+   (format-all-mode   "  "  format-all)
+   (which-key-mode "" which-key)
+   (emmet-mode     ""  emmet)
+   (page-break-lines-mode "" page-break-lines)
+   (subword-mode   ""  subword)))
 
 (provide 'drm-mode-line)

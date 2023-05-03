@@ -5,6 +5,10 @@
 (straight-use-package 'denote)
 (straight-use-package 'consult-notes)
 
+;;; org babel
+(setq org-confirm-babel-evaluate nil)
+
+;;; org modern
 (setq
  ;; Edit settings
  org-auto-align-tags nil

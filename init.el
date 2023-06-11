@@ -27,6 +27,7 @@
 (require 'drm-defaults)
 (require 'drm-completion)
 (require 'drm-editing)
+(require 'drm-project)
 (require 'drm-productivity)
 (require 'drm-programming)
 ;; load my custom lisp modules
@@ -34,3 +35,4 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(put 'downcase-region 'disabled nil)

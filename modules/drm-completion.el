@@ -25,14 +25,6 @@
 (marginalia-mode 1)
 
 ;; Set some consult bindings
-(global-set-key (kbd "C-c s k") 'consult-kmacro)
-(global-set-key (kbd "C-c s f") 'consult-flymake)
-(global-set-key (kbd "C-c s g") 'consult-goto-line)
-(global-set-key (kbd "C-c s o") 'consult-outline)
-(global-set-key (kbd "C-c s m") 'consult-mark)
-(global-set-key (kbd "C-c s l") 'consult-line)
-(global-set-key (kbd "C-c s L") 'consult-line-multi)
-(global-set-key (kbd "M-y") 'consult-yank-from-kill-ring)
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
 ;; Set up Orderless for better fuzzy matching

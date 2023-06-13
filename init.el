@@ -24,12 +24,14 @@
 
 ;;load component modules
 (require 'drm-ui)
+(require 'drm-evil)
 (require 'drm-defaults)
 (require 'drm-completion)
 (require 'drm-editing)
-(require 'drm-project)
 (require 'drm-productivity)
 (require 'drm-programming)
+(require 'drm-wk)
+(require 'drm-key-bindings)
 ;; load my custom lisp modules
 (require 'drm-dired-convert-with-pandoc)
 

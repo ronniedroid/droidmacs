@@ -42,12 +42,6 @@
 (setq scroll-margin 0)
 (setq scroll-preserve-screen-position t)
 
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "C-s"))
-(global-unset-key (kbd "C-S-s"))
-
-
 ;; Make shebang (#!) file executable when saved
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 

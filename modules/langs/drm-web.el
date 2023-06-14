@@ -1,10 +1,21 @@
 ;;; drm-web.el -*- lexical-binding: t; -*-
 
-;; install packages
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Packages and configurations related to web development
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'emmet-mode)
 (straight-use-package 'web-mode)
 (straight-use-package 'js2-mode)
 (straight-use-package 'php-mode)
+
+;; config
 
 ;; web mode configuration
 (setq web-mode-markup-indent-offset 2)
@@ -52,3 +63,4 @@
 (add-hook 'php-mode-hook 'eglot-ensure)
 
 (provide 'drm-web)
+;;; drm-web.el ends here

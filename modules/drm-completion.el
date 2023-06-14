@@ -1,5 +1,15 @@
 ;;; drm-completion.el -*- lexical-binding: t; -*-
 
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Completion packages and configurations.
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'vertico)
 (straight-use-package 'consult)
 (straight-use-package 'orderless)
@@ -9,6 +19,8 @@
 (straight-use-package 'cape)
 (straight-use-package 'dabbrev)
 (straight-use-package 'kind-icon)
+
+;; config
 
 ;; vertico mode settings
 
@@ -53,3 +65,4 @@
 (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
 
 (provide 'drm-completion)
+;;; drm-completion.el ends here

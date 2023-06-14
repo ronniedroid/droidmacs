@@ -1,9 +1,21 @@
 ;;; drm-clojure.el -*- lexical-binding: t; -*-
 
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Packages and configurations for the Clojure programming language
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'clojure-mode)
 (straight-use-package 'clojure-mode-extra-font-locking)
 (straight-use-package 'flymake-kondor)
 (straight-use-package 'cider)
+
+;; config
 
 (require 'clojure-mode-extra-font-locking)
 
@@ -15,7 +27,6 @@
 (global-set-key ( kbd "C-c C-j") 'cider-jack-in)
 
 ;; cider repl configuration
-
 (add-hook 'cider-repl-mode-hook #'subword-mode)
 (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
 
@@ -27,19 +38,7 @@
 
 (require 'cider)
 
-;; the equivalent of the proposed change
-(advice-add
- 'cider--update-jack-in-cmd
- :before-until
- (defun cider-dont-update-jack-in-cmd-when-given (params)
-   (when (plist-get params :jack-in-cmd) params)))
-
-;; now a nbb jack in command becomes:
-(defun nbb-jack-in ()
-  (interactive)
-  (cider-jack-in '(:jack-in-cmd "nbb nrepl-server")))
-
 (add-hook 'clojure-mode-hook #'eglot-ensure)
-;; (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 
 (provide 'drm-clojure)
+;;; drm-clojure.el ends here

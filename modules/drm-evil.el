@@ -1,4 +1,4 @@
-;;; drm-evil.el --- Evil mode packages -*- lexical-binding: t; -*-
+;;; drm-evil.el -*- lexical-binding: t; -*-
 
 ;; Author: Ronnie Nissan
 
@@ -49,4 +49,4 @@
 (evil-collection-init)
 
 (provide 'drm-evil)
-;;; evil-evil.el ends here
+;;; drm-evil.el ends here

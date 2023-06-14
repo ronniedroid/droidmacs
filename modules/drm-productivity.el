@@ -1,9 +1,21 @@
 ;;; drm-productivity.el -*- lexical-binding: t; -*-
 
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Packages and configuration related to productivity (org, md etc..)
+
+;;; code:
+
+;; packages
+
 (straight-use-package 'org-modern)
 (straight-use-package 'markdown-mode)
 (straight-use-package 'denote)
 (straight-use-package 'consult-notes)
+
+;; config
 
 ;;; org babel
 (setq org-confirm-babel-evaluate nil)
@@ -86,3 +98,4 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 
 (provide 'drm-productivity)
+;;; drm-productivity.el ends here

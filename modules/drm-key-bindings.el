@@ -1,11 +1,11 @@
-;;; drm-key-bindings.el --- Evil mode packages -*- lexical-binding: t; -*-
+;;; drm-key-bindings.el -*- lexical-binding: t; -*-
 
 ;; Author: Ronnie Nissan
 
 ;;; Commentary:
 
 ;; Set up some keybindings using general el.
-;; credit to distro-tube
+;; Some lines of code were copied from distro tube's emacs config
 
 ;;; Code:
 

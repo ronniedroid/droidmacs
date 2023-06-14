@@ -1,4 +1,4 @@
-;;; drm-wk.el --- Evil mode packages -*- lexical-binding: t; -*-
+;;; drm-wk.el -*- lexical-binding: t; -*-
 
 ;; Author: Ronnie Nissan
 
@@ -6,11 +6,14 @@
 
 ;; View which key you are pressing and what keys are available to you.
 ;; credit to distro-tube
+
 ;;; Code:
 
 ;; packages
 
 (straight-use-package 'which-key)
+
+;; config
 
 (which-key-mode 1)
 
@@ -28,4 +31,4 @@
       which-key-separator " → " )
 
 (provide 'drm-wk)
-;;; evil-wk.el ends here
+;;; drm-wk.el ends here

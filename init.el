@@ -20,7 +20,6 @@
 ;; Add the modules folder to the load path
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/langs" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/drm-functions/" user-emacs-directory))
 
 ;;load component modules
 (require 'drm-ui)
@@ -32,9 +31,6 @@
 (require 'drm-programming)
 (require 'drm-wk)
 (require 'drm-key-bindings)
-;; load my custom lisp modules
-(require 'drm-dired-convert-with-pandoc)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(put 'downcase-region 'disabled nil)

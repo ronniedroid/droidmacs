@@ -1,6 +1,15 @@
 ;;; drm-programming.el -*- lexical-binding: t; -*-
 
-;; install packages
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Packages and configurations related to programming modes
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'format-all)
 (straight-use-package 'magit)
 (straight-use-package 'exec-path-from-shell)
@@ -10,6 +19,8 @@
 (straight-use-package 'eldoc)
 (straight-use-package 'restclient)
 (straight-use-package 'ob-restclient)
+
+;; config
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -66,3 +77,4 @@
 (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
 
 (provide 'drm-programming)
+;;; drm-programming.el ends here

@@ -1,6 +1,18 @@
 ;;; drm-mode-line.el -*- lexical-binding: t; -*-
 
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; packages and configurations related to the mode line
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'dim)
+
+;; config
 
 (defun drm-simple-mode-line-render (left right)
   "Return a string of `window-width' length.
@@ -82,3 +94,4 @@
    (subword-mode   ""  subword)))
 
 (provide 'drm-mode-line)
+;;; drm-mode-line.el ends here

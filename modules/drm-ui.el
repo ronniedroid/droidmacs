@@ -1,12 +1,23 @@
 ;;; drm-ui.el -*- lexical-binding: t; -*-
 
-;; Packages
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; packages and configuration to make emacs' UI nicer and more functional
+
+;;; Code:
+
+;; packages
+
 (straight-use-package 'dashboard)
 (straight-use-package 'echo-bell)
 (straight-use-package 'helpful)
 (straight-use-package 'page-break-lines)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el" ))
 (straight-use-package 'modus-themes)
+
+;; config
 
 ;; Some defaults
 (global-hl-line-mode t)
@@ -72,3 +83,4 @@
 (global-ligature-mode t)
 
 (provide 'drm-ui)
+;;; drm-ui.el ends here

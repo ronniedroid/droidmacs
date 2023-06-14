@@ -1,5 +1,16 @@
 ;;; drm-defaults.el -*- lexical-binding: t; -*-
 
+;; Author: Ronnie Nissan
+
+;;; Commentary:
+
+;; Some sane defaults for emacs
+
+;;; Code:
+
+;; packages
+
+
 (straight-use-package 'no-littering)
 
 ;; clean up after emacs
@@ -41,3 +52,4 @@
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 (provide 'drm-defaults)
+;;; drm-defaults.el ends here

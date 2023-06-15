@@ -80,7 +80,8 @@
   "p e" '(project-eshell :wk "Project eshell")
   "p s" '(project-shell :wk "Project shell")
   "p r" '(project-query-replace-regexp :wk "Project query replace regexp")
-  "p k" '(project-kill-buffers :wk "Project kill all buffers"))
+  "p k" '(project-kill-buffers :wk "Project kill all buffers")
+  "p v" '(magit-status :wk "Open magit"))
 
 (drm/leader-keys
   "s" '(:ignore t :wk "Search and consult")

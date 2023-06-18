@@ -45,7 +45,7 @@
 (setq format-all-formatters '(
 			      ("Python" black)
 			      ("vue" prettier)
-                              ("Astro" astro-ls)
+                              ("Astro" prettier)
                               ("go" gpfmt)
                               ("Clojure" (zprint "{:style :community :width 50}"))
                               ("PHP" prettier)

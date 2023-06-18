@@ -30,9 +30,17 @@
 
 ;; Defaults font
 (set-face-attribute 'default nil
-		    :font "JetBrainsMono Nerd Font Mono"
-		    :height 120
-		    :weight 'regular)
+                    :font "JetBrains Mono Nerd Font Mono"
+                    :height 110
+                    :weight 'regular)
+(set-face-attribute 'variable-pitch nil
+                    :font "Inter"
+                    :height 120
+                    :weight 'regular)
+(set-face-attribute 'fixed-pitch nil
+                    :font "JetBrains Mono Nerd Font Mono"
+                    :height 110
+                    :weight 'regular)
 
 ;; Set default theme
 (load-theme 'modus-operandi t)

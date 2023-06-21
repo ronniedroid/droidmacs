@@ -25,7 +25,7 @@
   :global-prefix "M-SPC") ;; access leader in insert mode
 
 (drm/leader-keys
-  "b" '(:ignore t :wk "buffer")
+  "b" '(:ignore t :wk "Buffer")
   "b b" '(consult-buffer :wk "Switch buffer")
   "b i" '(ibuffer :wk "Ibuffer")
   "b k" '(kill-this-buffer :wk "Kill this buffer")
@@ -33,6 +33,18 @@
   "b p" '(previous-buffer :wk "Previous buffer")
   "b r" '(revert-buffer :wk "Reload buffer")
   "b s" '(save-buffer :wk "Save buffer"))
+
+(drm/leader-keys
+  "f" `(:ignore t :wk "File and Frame")
+  "f f" '(find-file :wk "Find file")
+  "f w" `(write-file :wk "Write file")
+  "f i" `(insert-file :wk "Insert file")
+  "f F" '(other-frame :wk "Go to other frame")
+  "f d" '(delete-frame :wk "Delete current frame")
+  "f o" '(delete-other-frames :wk "Close all other frames")
+  "f c" `(clone-frame :wk "Clone current frame")
+  "f r" `(set-frame-name :wk "Rename frame")
+  "f p" '(other-frame-prefix :wk "Other frame prefix"))
 
 (drm/leader-keys
   "w" '(:ignore t :wk "Window")

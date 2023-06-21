@@ -43,7 +43,10 @@
                     :weight 'regular)
 
 ;; Set default theme
-(load-theme 'modus-operandi t)
+(setq modus-vivendi-palette-overrides
+      '((bg-main "#1E1E1E")))
+
+(load-theme 'modus-vivendi t)
 (global-set-key [f5] #'modus-themes-toggle)
 
 ;; Dahboard

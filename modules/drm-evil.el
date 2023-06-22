@@ -40,10 +40,10 @@
 (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
 ;; Modes that should start in Emacs state
-(dolist (mode '(custom-mode
-                eshell-mode
-                term-mode))
-  (add-to-list 'evil-emacs-state-modes mode))
+;; (dolist (mode '(custom-mode
+;;                 eshell-mode
+;;                 term-mode))
+;;   (add-to-list 'evil-emacs-state-modes mode))
 
 ;; turn on evil collection
 (evil-collection-init)

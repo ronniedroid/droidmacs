@@ -79,10 +79,11 @@
 (drm/leader-keys
   "t" '(:ignore t :wk "Toggle")
   "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-  "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+  "t t" '(visual-line-mode :wk "Toggle truncated lines")
+  "t p" '(popper-toggle-latest :wk "Toogle popper"))
 
 (drm/leader-keys
-  "p" '(:ignore t :wk "Project")
+  "p" '(:ignore t :wk "Project/popper")
   "p p" '(project-switch-project :wk "Switch project")
   "p b" '(consult-project-buffer :wk "Switch project buffer")
   "p f" '(project-find-file :wk "Project find file")
@@ -93,7 +94,9 @@
   "p s" '(project-shell :wk "Project shell")
   "p r" '(project-query-replace-regexp :wk "Project query replace regexp")
   "p k" '(project-kill-buffers :wk "Project kill all buffers")
-  "p v" '(magit-status :wk "Open magit"))
+  "p v" '(magit-status :wk "Open magit")
+  "p n" '(popper-cycle :wk "Cycle popper window")
+  "p t" '(popper-toggle-type :wk "Toggle making the window a popup"))
 
 (drm/leader-keys
   "s" '(:ignore t :wk "Search and consult")
@@ -104,13 +107,18 @@
   "s o" '(occur :wk "Occur")
   "s l" '(consult-line :wk "Consult line")
   "s L" '(consult-line-multi :wk "Consult line multi")
-  "s o" '(consult-outline :wk "Consult outline")
+  "s O" '(consult-outline :wk "Consult outline")
   "s i" '(consult-imenu :wk "Consult imenu")
   "s I" `(consult-imenu-multi :wk "Consult imenu multi")
   "s g" '(consult-goto-line :wk "Consult goto line")
   "s k" '(consult-kmacro :wk "Consult kmacro")
   "s f" '(consult-flymake :wk "Consult flymake")
   "s m" '(consult-mark :wk "Consult mark"))
+
+(drm/leader-keys
+  "r" '(:ignore t :wk "replace")
+  "r r" '(replace-regexp :wk "Replace regexp")
+  "r q" '(query-replace :wk "Query replace"))
 
 (drm/leader-keys
   "x" `(:ignore t :wk "commands")

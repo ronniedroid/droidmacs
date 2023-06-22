@@ -25,6 +25,7 @@
 (require 'drm-ui)
 (require 'drm-evil)
 (require 'drm-defaults)
+(require 'drm-windows)
 (require 'drm-completion)
 (require 'drm-editing)
 (require 'drm-productivity)

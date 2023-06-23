@@ -116,9 +116,17 @@
   "s m" '(consult-mark :wk "Consult mark"))
 
 (drm/leader-keys
-  "r" '(:ignore t :wk "replace")
+  "r" '(:ignore t :wk "Replace")
   "r r" '(replace-regexp :wk "Replace regexp")
   "r q" '(query-replace :wk "Query replace"))
+
+(drm/leader-keys
+  "c" '(:ignore t :wk "Comment")
+  "c c" '(evilnc-comment-or-uncomment-lines :wk "Comment/Uncomment lines")
+  "c b" '(evilnc-comment-box :wk "Comment/Uncomment region and put it in a box")
+  "c l" '(evilnc-comment-or-uncomment-to-the-line :wk "Comment/Uncomment till line NUM")
+  "c t" '(evilnc-comment-or-uncomment-html-tag :wk "Comment/Uncomment HTML tag(s)")
+  "c s" '(evilnc-comment-and-kill-ring-save :wk "Comment and save to the kill ring"))
 
 (drm/leader-keys
   "x" `(:ignore t :wk "commands")

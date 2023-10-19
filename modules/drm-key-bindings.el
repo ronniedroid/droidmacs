@@ -15,14 +15,10 @@
 
 ;; config
 
-(general-evil-setup)
-
 ;; set up 'SPC' as the global leader key
 (general-create-definer drm/leader-keys
-  :states '(normal insert visual emacs)
   :keymaps 'override
-  :prefix "SPC" ;; set leader
-  :global-prefix "M-SPC") ;; access leader in insert mode
+  :prefix "M-SPC") ;; set leader
 
 (drm/leader-keys
   "b" '(:ignore t :wk "Buffer")
@@ -32,7 +28,8 @@
   "b n" '(next-buffer :wk "Next buffer")
   "b p" '(previous-buffer :wk "Previous buffer")
   "b r" '(revert-buffer :wk "Reload buffer")
-  "b s" '(save-buffer :wk "Save buffer"))
+  "b s" '(save-buffer :wk "Save buffer")
+  "b c" '(crdt-switch-to-buffer :wk "Switch to a crdt shared buffer"))
 
 (drm/leader-keys
   "f" `(:ignore t :wk "File and Frame")

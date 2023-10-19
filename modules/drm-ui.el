@@ -1,4 +1,4 @@
-;;; drm-ui.el -*- lexical-binding: t; -*-
+;; drm-ui.el -*- lexical-binding: t; -*-
 
 ;; Author: Ronnie Nissan
 
@@ -27,6 +27,7 @@
 (setq echo-bell-string "🔔")
 (setq echo-bell-background "white")
 (echo-bell-mode 1)
+(pixel-scroll-precision-mode 1)
 
 ;; Defaults font
 (set-face-attribute 'default nil
@@ -46,7 +47,8 @@
 (setq modus-vivendi-palette-overrides
       '((bg-main "#1E1E1E")))
 
-(load-theme 'modus-vivendi t)
+(load-theme 'modus-vivendi-tinted t)
+(setq modus-themes-to-toggle '(modus-vivendi-tinted modus-operandi-tinted))
 (global-set-key [f5] #'modus-themes-toggle)
 
 ;; Dahboard

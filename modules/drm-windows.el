@@ -2,12 +2,16 @@
 
 (straight-use-package 'shackle)
 (straight-use-package 'popper)
+(straight-use-package
+ '(iwindow :type git
+           :repo "https://codeberg.org/akib/emacs-iwindow.git"))
 
 ;; shackle configurations
 (setq shackle-lighter "")
 (setq shackle-select-reused-windows nil) ; default nil
 (setq shackle-default-alignment 'below) ; default below
 (setq shackle-default-size 0.4) ; default 0.5
+
 ;; Shackle window rules
 (setq shackle-rules
       ;; CONDITION(:regexp)            :select     :inhibit-window-quit   :size+:align|:other     :same|:popup
@@ -33,7 +37,16 @@
         Helpful-mode
         compilation-mode))
 (setq popper-display-control nil)
+
 ;; start popper
 (popper-mode +1)
+
+;; iwindow config
+
+(global-set-key (kbd "C-x o") #'iwindow-select)
+(global-set-key (kbd "C-x 9") #'iwindow-swap)
+(global-set-key (kbd "C-x 0") #'iwindow-delete)
+(global-set-key (kbd "C-x 1") #'iwindow-delete-others)
+
 
 (provide 'drm-windows)

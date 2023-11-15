@@ -15,10 +15,14 @@
 
 ;; config
 
+(general-evil-setup)
+
 ;; set up 'SPC' as the global leader key
 (general-create-definer drm/leader-keys
+  :states '(normal insert visual emacs)
   :keymaps 'override
-  :prefix "M-SPC") ;; set leader
+  :prefix "SPC" ;; set leader
+  :global-prefix "M-SPC") ;; access leader in insert mode
 
 (drm/leader-keys
   "b" '(:ignore t :wk "Buffer")
@@ -45,15 +49,12 @@
 
 (drm/leader-keys
   "w" '(:ignore t :wk "Window")
-  "w w" '(other-window :wk "Go to other window")
-  "w d" '(delete-window :wk "Delete current window")
-  "w o" '(delete-other-windows :wk "Close all other windows")
-  "w s" '(split-window-right :wk "Split window horizontally")
-  "w v" '(split-window-below :wk "Split window vertically")
-  "w h" '(evil-window-left :wk "Move to left window")
-  "w j" '(evil-window-down :wk "Move to down window")
-  "w k" '(evil-window-up :wk "Move to up window")
-  "w l" '(evil-window-right :wk "Move to right window"))
+  "w w" '(iwindow-select :wk "Go to other window")
+  "w d" '(iwindow-delete :wk "Delete current window")
+  "w o" '(iwindow-delete-others :wk "Close all other windows")
+  "w s" '(iwindow-swap :wk "Swap current window other window")
+  "w r" '(split-window-right :wk "Split window horizontally")
+  "w b" '(split-window-below :wk "Split window vertically"))
 
 (drm/leader-keys
   "e" '(:ignore t :wk "Evaluate")

@@ -41,12 +41,4 @@
 ;; start popper
 (popper-mode +1)
 
-;; iwindow config
-
-(global-set-key (kbd "C-x o") #'iwindow-select)
-(global-set-key (kbd "C-x 9") #'iwindow-swap)
-(global-set-key (kbd "C-x 0") #'iwindow-delete)
-(global-set-key (kbd "C-x 1") #'iwindow-delete-others)
-
-
 (provide 'drm-windows)

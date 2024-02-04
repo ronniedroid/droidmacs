@@ -14,6 +14,7 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+(straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'ws-butler)
 (straight-use-package 'smartparens)
 

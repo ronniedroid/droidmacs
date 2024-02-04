@@ -23,7 +23,7 @@
 
 ;;load component modules
 (require 'drm-ui)
-(require 'drm-evil)
+;; (require 'drm-evil)
 (require 'drm-defaults)
 (require 'drm-windows)
 (require 'drm-completion)
@@ -31,7 +31,7 @@
 (require 'drm-productivity)
 (require 'drm-programming)
 (require 'drm-wk)
-(require 'drm-crdt)
+;; (require 'drm-crdt)
 (require 'drm-key-bindings)
 
 ;; Make gc pauses faster by decreasing the threshold.

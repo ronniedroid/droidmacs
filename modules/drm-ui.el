@@ -43,10 +43,6 @@
                     :height 110
                     :weight 'regular)
 
-;; Set default theme
-(setq modus-vivendi-palette-overrides
-      '((bg-main "#1E1E1E")))
-
 (load-theme 'modus-vivendi-tinted t)
 (setq modus-themes-to-toggle '(modus-vivendi-tinted modus-operandi-tinted))
 (global-set-key [f5] #'modus-themes-toggle)

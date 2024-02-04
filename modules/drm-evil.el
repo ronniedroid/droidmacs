@@ -13,7 +13,6 @@
 
 (straight-use-package 'evil)
 (straight-use-package 'evil-collection)
-(straight-use-package 'evil-nerd-commenter)
 
 ;; config
 
@@ -28,9 +27,6 @@
 
 ;; Make evil search more like vim
 (evil-select-search-module 'evil-search-module 'evil-search)
-
-;; turn on evil commenter
-(evilnc-default-hotkeys)
 
 (global-set-key (kbd "C-M-u") 'universal-argument)
 (global-set-key (kbd "M-p") 'consult-yank-from-kill-ring)

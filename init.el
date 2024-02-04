@@ -30,6 +30,7 @@
 (require 'drm-editing)
 (require 'drm-productivity)
 (require 'drm-programming)
+(require 'drm-project)
 (require 'drm-wk)
 ;; (require 'drm-crdt)
 (require 'drm-key-bindings)

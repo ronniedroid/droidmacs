@@ -18,10 +18,6 @@
   ;; Set the right directory to store the native compilation cache
   (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory)))
 
-;; Don't use package.el, we'll use straight.el instead
-(setq package-enable-at-startup nil)
-(setq straight-use-package-by-default t)
-
 ;; Remove some unneeded UI elements
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)

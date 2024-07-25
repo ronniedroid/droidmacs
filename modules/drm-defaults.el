@@ -8,13 +8,8 @@
 
 ;;; Code:
 
-;; packages
-
-
-(straight-use-package 'no-littering)
-
 ;; clean up after emacs
-(require 'no-littering)
+(use-package no-littering)
 
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))

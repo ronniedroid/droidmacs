@@ -1,16 +1,21 @@
 ;;; drm-editing.el -*- lexical-binding: t; -*-
 
-(straight-use-package 'project)
+;; Author: Ronnie Nissan
 
-(require 'project)
+;;; Commentary:
 
-(with-eval-after-load 'project
-  (define-key project-prefix-map (kbd "v") 'magit-status))
+;; Setup emacs's built in project package
 
-(global-set-key (kbd "C-x p b") 'consult-project-buffer)
+;;; Code:
 
-(setq project-switch-commands
+(use-package project
+  :ensure nil
+  :custom
+  (project-switch-commands
       (append '((magit-status "Magit status"))
               project-switch-commands))
+  :bind (("C-x p b" . consult-project-buffer)
+         :map project-prefix-map
+         ("v" . magit-status)))
 
 (provide 'drm-project)

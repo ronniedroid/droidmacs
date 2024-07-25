@@ -14,13 +14,15 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
-(straight-use-package 'evil-nerd-commenter)
-(straight-use-package 'ws-butler)
-(straight-use-package 'smartparens)
+(use-package evil-nerd-commenter
+  :init (evilnc-default-hotkeys))
 
-;; Set up ws-butler for trimming whitespace and line endings
-(add-hook 'text-mode-hook 'ws-butler-mode)
-(add-hook 'prog-mode-hook 'ws-butler-mode)
+(use-package ws-butler
+  :init
+  (add-hook 'text-mode-hook 'ws-butler-mode)
+  (add-hook 'prog-mode-hook 'ws-butler-mode))
+
+(use-package smartparens)
 
 (setq org-export-allow-bind-keywords t)
 

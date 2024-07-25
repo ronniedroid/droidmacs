@@ -8,12 +8,6 @@
 
 ;;; Code:
 
-;; packages
-
-(straight-use-package 'dim)
-
-;; config
-
 (defun drm-simple-mode-line-render (left right)
   "Return a string of `window-width' length.
   Containing LEFT, and RIGHT aligned respectively."
@@ -73,25 +67,6 @@
 ;; Add directory name to files with the same name
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
-
-;; Dim settings, hide or change how major and minor modes show in the modline
-(dim-major-names
- '((emacs-lisp-mode           "ELISP")
-   (inferior-emacs-lisp-mode  "ELISP<")
-   (clojure-mode              "CLJ")
-   (dashboard-mode             "Dashboard")
-   (clojurescript-mode         "CLJS")))
-
-(dim-minor-names
- '((visual-line-mode   " ↩")
-   (auto-fill-function " ↵")
-   (eldoc-mode         ""    eldoc)
-   (ws-butler-mode    ""  ws-butler)
-   (format-all-mode   "  "  format-all)
-   (which-key-mode "" which-key)
-   (emmet-mode     ""  emmet)
-   (page-break-lines-mode "" page-break-lines)
-   (subword-mode   ""  subword)))
 
 (provide 'drm-mode-line)
 ;;; drm-mode-line.el ends here

@@ -8,73 +8,96 @@
 
 ;;; Code:
 
-;; packages
+(use-package rainbow-delimiters
+  :hook (prog-mode))
 
-(straight-use-package 'format-all)
-(straight-use-package 'magit)
-(straight-use-package 'exec-path-from-shell)
-(straight-use-package 'xref)
-(straight-use-package 'rainbow-delimiters)
-(straight-use-package 'eglot)
-(straight-use-package 'eldoc)
-(straight-use-package 'restclient)
-(straight-use-package 'ob-restclient)
-
-;; config
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((restclient . t)
-   (emacs-lisp . t)))
-
-;; require lang specific configs
-(require 'drm-web)
-(require 'drm-rust)
-(require 'drm-clojure)
-(require 'drm-go)
-(require 'drm-haskell)
+(use-package xref)
 
 ;; use system PATH for emacs
-(exec-path-from-shell-initialize)
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; set a keybindings for magit
-(global-set-key ( kbd "C-x g") 'magit-status)
+(use-package magit
+  :bind
+  (("C-x g" . magit-status)))
 
 ;; setup formatting for programming languages
-(setq format-all-show-errors 'never)
-(setq format-all-formatters '(
-			      ("Python" black)
-			      ("vue" prettier)
-                              ("Astro" prettier)
-                              ("go" gpfmt)
-                              ("Clojure" (zprint "{:style :community :width 50}"))
-                              ("PHP" prettier)
-			      ))
-(add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-(add-hook 'prog-mode-hook 'format-all-mode)
-(add-hook 'before-save-hook 'format-all-buffer)
+(use-package format-all
+  :custom
+  (format-all-show-errors 'never)
+  (format-all-formatters '(
+                           ("go" gpfmt)
+                           ("Clojure" (zprint "{:style :community :width 50}"))
+			   ))
+  :hook
+  (format-all-mode . format-all-ensure-formatter)
+  (prog-mode . format-all-mode)
+  (before-save . format-all-buffer))
 
-(require 'eglot)
-;; configure languages and their servers
-(add-to-list 'eglot-server-programs '(drm-astro-mode . ("astro-ls" "--stdio")))
-(add-to-list 'eglot-server-programs '(drm-vue-mode . ("vls" "--stdio")))
-(add-to-list 'eglot-server-programs '(drm-html-mode . ("vscode-html-language-server" "--stdio")))
-(add-to-list 'eglot-server-programs '(drm-css-mode . ("vscode-css-language-server" "--stdio")))
-(add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
-;; do not load language server capabilities that do not work in egot
-(add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
-;;config
-(setq-default eglot-workspace-configuration
-              '((haskell
-                 (plugin
-                  (stan
-                   (globalOn . :json-false))))))
-(setq eglot-autoshutdown t)  ;; shutdown language server after closing last file
-(setq eglot-confirm-server-initiated-edits nil)  ;; allow edits without confirmation
+;; Javascript
+(use-package js2-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.cjs\\'" . js2-mode)))
+
+;; Golang
+(use-package go-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\*.go\\'" . go-mode))
+  :hook
+  (go-mode . eglot-ensure))
+
+;; Clojure
+
+(use-package clojure-mode-extra-font-locking)
+
+;; clojure mode configuration
+(use-package clojure-mode
+  :hook
+  (clojure-mode . subword-mode))
+
+(use-package flymake-kondor
+  :hook
+  (clojure-mode . flymake-kondor-setup))
+
+(use-package cider
+  :custom
+  (cider-repl-wrap-history t)
+  (cider-repl-history-file "~/.config/emacs/cider-history")
+  (cider-save-file-on-load t)
+  (cider-font-lock-dynamically '(macro core function var))
+  (cider-repl-display-help-banner nil)
+  :bind ("C-c C-j" . cider-jack-in)
+  :hook
+  (cider-repl-mode-hook . subword-mode)
+  (cider-repl-mode-hook . rainbow-delimiters-mode))
+
+;; Eglot
+
+(use-package eglot
+  :ensure nil
+  :defer t
+  :custom
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-initiated-edits nil)
+  :config
+  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+  :hook
+  (clojure-mode . eglot-ensure)
+  (js2-mode . eglot-ensure)
+  (go-mode . eglot-ensure))
+
 
 ;; start eldoc when eglot is started
-(add-hook 'eglot-managed-mode-hook #'eldoc-mode)
-(add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+(use-package eldoc
+  :ensure nil
+  :hook
+  (eglot-managed-mode . eldoc-mode)
+  (emacs-lisp-mode . eldoc-mode))
 
 (provide 'drm-programming)
 ;;; drm-programming.el ends here

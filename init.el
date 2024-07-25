@@ -4,22 +4,14 @@
 (set-default-coding-systems 'utf-8)
 
 ;; package management
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 ;; Add the modules folder to the load path
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/langs" user-emacs-directory))
 
 ;;load component modules
 (require 'drm-ui)
@@ -31,8 +23,21 @@
 (require 'drm-programming)
 (require 'drm-project)
 (require 'drm-wk)
-(require 'drm-key-bindings)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
 (put 'downcase-region 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-fold-catch-invisible-edits 'show-and-error nil nil "Customized with use-package org-modern")
+ '(package-selected-packages
+   '(cider js2-mode rainbow-delimiters exec-path-from-shell format-all magit which-key consult-notes denote markdown-mode org-modern smartparens ws-butler evil-nerd-commenter popper shackle no-littering ligature echo-bell helpful page-break-lines dashboard modus-themes kind-icon cape corfu orderless vertico marginalia consult)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

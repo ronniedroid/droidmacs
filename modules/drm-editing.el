@@ -17,6 +17,8 @@
 (use-package evil-nerd-commenter
   :init (evilnc-default-hotkeys))
 
+(global-unset-key (kbd "C-c p"))
+
 (use-package ws-butler
   :init
   (add-hook 'text-mode-hook 'ws-butler-mode)

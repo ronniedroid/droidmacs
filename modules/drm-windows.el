@@ -29,8 +29,6 @@
   :init
   (shackle-mode 1))
 
-(global-unset-key (kbd "C-c p"))
-
 (use-package popper
   :custom
   (popper-reference-buffers

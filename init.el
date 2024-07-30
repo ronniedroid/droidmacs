@@ -16,9 +16,9 @@
 ;;load component modules
 (require 'drm-ui)
 (require 'drm-defaults)
+(require 'drm-editing)
 (require 'drm-windows)
 (require 'drm-completion)
-(require 'drm-editing)
 (require 'drm-productivity)
 (require 'drm-programming)
 (require 'drm-project)

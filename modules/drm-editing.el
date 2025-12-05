@@ -10,12 +10,16 @@
 
 ;; packages
 
-
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
 (use-package evil-nerd-commenter
-  :init (evilnc-default-hotkeys))
+  :bind (("C-; C-;" . evilnc-comment-or-uncomment-lines)
+         ("C-; C-t" . evilnc-comment-or-uncomment-to-the-line)
+         ("C-; C-r" . comment-or-uncomment-region)
+         ("C-; C-k" . evilnc-comment-and-kill-ring-save)
+         ("C-; C-b" . evilnc-comment-box)
+         ("C-; C-c" . evilnc-copy-and-comment-lines)))
 
 (global-unset-key (kbd "C-c p"))
 

@@ -44,13 +44,6 @@
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.cjs\\'" . js2-mode)))
 
-;; Golang
-(use-package go-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\*.go\\'" . go-mode))
-  :hook
-  (go-mode . eglot-ensure))
-
 ;; Clojure
 
 (use-package clojure-mode-extra-font-locking)
@@ -76,6 +69,15 @@
   (cider-repl-mode-hook . subword-mode)
   (cider-repl-mode-hook . rainbow-delimiters-mode))
 
+;; Vala
+(use-package vala-mode
+  ;; vala-mode is bundled with Emacs, so no :ensure needed
+  :mode ("\\.vala\\'" . vala-mode)
+  ("\\.vapi\\'" . vala-mode)
+  :config
+  (add-to-list 'file-coding-system-alist '("\\.vala\\'" . utf-8))
+  (add-to-list 'file-coding-system-alist '("\\.vapi\\'" . utf-8)))
+
 ;; Eglot
 
 (use-package eglot
@@ -86,10 +88,12 @@
   (setq eglot-confirm-server-initiated-edits nil)
   :config
   (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+  (add-to-list 'eglot-server-programs
+               '(vala-mode . ("vala-language-server")))
   :hook
   (clojure-mode . eglot-ensure)
   (js2-mode . eglot-ensure)
-  (go-mode . eglot-ensure))
+  (vala-mode . eglot-ensure))
 
 
 ;; start eldoc when eglot is started

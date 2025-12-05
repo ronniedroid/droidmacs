@@ -8,7 +8,21 @@
 
 ;;; Code:
 
+;; set the frame settings here
+(setq default-frame-alist
+      `(
+	(vertical-scroll-bars . nil)
+	(horizontal-scroll-bars . nil)
+        (fullscreen . maximized)
+        (undecorated . t)
+	(menu-bar-lines . 0)
+	(tool-bar-lines . 0)
+	))
+
 ;; Some defaults
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq-default left-margin-width 2)
 (global-hl-line-mode t)
 (make-variable-buffer-local 'global-hl-line-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -32,12 +46,11 @@
                     :weight 'regular)
 
 (use-package modus-themes
-  :ensure t
   :custom
   (modus-themes-to-toggle '(modus-vivendi-tinted modus-operandi-tinted))
   :bind ([f5] . #'modus-themes-toggle)
   :init
-  (load-theme 'modus-operandi-tinted t))
+  (modus-themes-select 'modus-operandi-tinted))
 
 ;; Dahboard
 (use-package dashboard

@@ -8,7 +8,15 @@
 
 ;;; Code:
 
-;; clean up after emacs
+;; Housekeeping
+;; Make the initial buffer load faster by setting its mode to fundamental-mode
+(setq initial-major-mode 'fundamental-mode)
+(setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
+(setq create-lockfiles nil)
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (use-package no-littering)
 
 (setq auto-save-file-name-transforms
